@@ -11,11 +11,9 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QTextEdit>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -23,45 +21,59 @@ QT_BEGIN_NAMESPACE
 class Ui_TcpClient
 {
 public:
-    QVBoxLayout *verticalLayout_2;
-    QVBoxLayout *verticalLayout;
-    QTextEdit *textEdit;
-    QHBoxLayout *horizontalLayout;
-    QLineEdit *lineEdit;
-    QPushButton *btnSend;
+    QLabel *label;
+    QLineEdit *editName;
+    QPushButton *btnLogin;
+    QPushButton *btnRegister;
+    QLabel *label_2;
+    QLineEdit *editPwd;
+    QPushButton *btnCancel;
 
     void setupUi(QWidget *TcpClient)
     {
         if (TcpClient->objectName().isEmpty())
             TcpClient->setObjectName(QString::fromUtf8("TcpClient"));
-        TcpClient->resize(531, 379);
-        verticalLayout_2 = new QVBoxLayout(TcpClient);
-        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
-        verticalLayout = new QVBoxLayout();
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        textEdit = new QTextEdit(TcpClient);
-        textEdit->setObjectName(QString::fromUtf8("textEdit"));
-
-        verticalLayout->addWidget(textEdit);
-
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        lineEdit = new QLineEdit(TcpClient);
-        lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
-
-        horizontalLayout->addWidget(lineEdit);
-
-        btnSend = new QPushButton(TcpClient);
-        btnSend->setObjectName(QString::fromUtf8("btnSend"));
-
-        horizontalLayout->addWidget(btnSend);
-
-
-        verticalLayout->addLayout(horizontalLayout);
-
-
-        verticalLayout_2->addLayout(verticalLayout);
-
+        TcpClient->resize(550, 428);
+        label = new QLabel(TcpClient);
+        label->setObjectName(QString::fromUtf8("label"));
+        label->setGeometry(QRect(100, 90, 80, 26));
+        QFont font;
+        font.setFamily(QString::fromUtf8("\351\234\236\351\271\234\346\226\207\346\245\267"));
+        font.setPointSize(18);
+        label->setFont(font);
+        editName = new QLineEdit(TcpClient);
+        editName->setObjectName(QString::fromUtf8("editName"));
+        editName->setGeometry(QRect(190, 90, 251, 41));
+        btnLogin = new QPushButton(TcpClient);
+        btnLogin->setObjectName(QString::fromUtf8("btnLogin"));
+        btnLogin->setGeometry(QRect(190, 210, 171, 51));
+        QFont font1;
+        font1.setFamily(QString::fromUtf8("\351\234\236\351\271\234\346\226\207\346\245\267"));
+        font1.setPointSize(20);
+        font1.setBold(true);
+        font1.setWeight(75);
+        btnLogin->setFont(font1);
+        btnRegister = new QPushButton(TcpClient);
+        btnRegister->setObjectName(QString::fromUtf8("btnRegister"));
+        btnRegister->setGeometry(QRect(110, 280, 111, 41));
+        QFont font2;
+        font2.setFamily(QString::fromUtf8("\351\234\236\351\271\234\346\226\207\346\245\267"));
+        font2.setPointSize(18);
+        font2.setBold(false);
+        font2.setWeight(50);
+        btnRegister->setFont(font2);
+        label_2 = new QLabel(TcpClient);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+        label_2->setGeometry(QRect(100, 150, 80, 27));
+        label_2->setFont(font);
+        editPwd = new QLineEdit(TcpClient);
+        editPwd->setObjectName(QString::fromUtf8("editPwd"));
+        editPwd->setGeometry(QRect(190, 150, 251, 41));
+        editPwd->setEchoMode(QLineEdit::Password);
+        btnCancel = new QPushButton(TcpClient);
+        btnCancel->setObjectName(QString::fromUtf8("btnCancel"));
+        btnCancel->setGeometry(QRect(320, 280, 111, 41));
+        btnCancel->setFont(font2);
 
         retranslateUi(TcpClient);
 
@@ -71,7 +83,11 @@ public:
     void retranslateUi(QWidget *TcpClient)
     {
         TcpClient->setWindowTitle(QCoreApplication::translate("TcpClient", "TcpClient", nullptr));
-        btnSend->setText(QCoreApplication::translate("TcpClient", "\345\217\221\351\200\201", nullptr));
+        label->setText(QCoreApplication::translate("TcpClient", "\347\224\250\346\210\267\345\220\215:", nullptr));
+        btnLogin->setText(QCoreApplication::translate("TcpClient", "\347\231\273\345\275\225", nullptr));
+        btnRegister->setText(QCoreApplication::translate("TcpClient", "\346\263\250\345\206\214", nullptr));
+        label_2->setText(QCoreApplication::translate("TcpClient", "\345\257\206   \347\240\201:", nullptr));
+        btnCancel->setText(QCoreApplication::translate("TcpClient", "\346\263\250\351\224\200", nullptr));
     } // retranslateUi
 
 };

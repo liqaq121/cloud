@@ -10,6 +10,7 @@ public:
     ~OperateDB();
     static OperateDB& getInstance();
     void init();
+    bool handleRegister(const char* name,const char* pwd);
 private:
     QSqlDatabase m_db;
 };

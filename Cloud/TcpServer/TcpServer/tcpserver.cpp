@@ -34,7 +34,7 @@ void TcpServer::loadConfg()
         data.replace("\r\n"," ");
         QStringList strList=data.split(' ');
         this->m_strIP=strList.at(0);
-        this->m_port=strList.at(1).toUShort();
+        this->m_port=strList.at(1).toUInt();
     }
     else
     {

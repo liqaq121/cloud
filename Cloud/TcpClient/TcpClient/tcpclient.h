@@ -19,8 +19,13 @@ public:
     void loadConfig();
 public slots:
     void onConnected();
+    void onRecvMsg();
 private slots:
-    void on_btnSend_clicked();
+    //void on_btnSend_clicked();
+
+    void on_btnLogin_clicked();
+
+    void on_btnRegister_clicked();
 
 private:
     Ui::TcpClient *ui;
