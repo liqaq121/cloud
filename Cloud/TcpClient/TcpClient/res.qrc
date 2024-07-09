@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/config">
+        <file>client.cfg</file>
+    </qresource>
+    <qresource prefix="/"/>
+</RCC>
