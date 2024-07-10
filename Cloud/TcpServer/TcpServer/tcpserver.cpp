@@ -12,7 +12,7 @@ TcpServer::TcpServer(QWidget *parent)
 {
     ui->setupUi(this);
     loadConfg();
-    //监听 自动调用嘘寒湖incomingConnection()
+    //监听 自动调用虚函数incomingConnection()
     //获取单例
     MyTcpServer::getInstance().listen(QHostAddress(m_strIP),m_port);
 
@@ -42,3 +42,8 @@ void TcpServer::loadConfg()
     }
 }
 
+
+void TcpServer::on_pushButton_clicked()
+{
+    qDebug()<<MyTcpServer::getInstance().m_tcpSocketList.size();
+}

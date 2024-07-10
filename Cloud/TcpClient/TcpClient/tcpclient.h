@@ -27,6 +27,8 @@ private slots:
 
     void on_btnRegister_clicked();
 
+    void on_btnCancel_clicked();
+
 private:
     Ui::TcpClient *ui;
     QTcpSocket m_tcpSocket;

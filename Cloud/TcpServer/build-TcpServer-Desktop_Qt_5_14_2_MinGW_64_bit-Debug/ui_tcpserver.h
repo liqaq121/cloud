@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -18,12 +19,16 @@ QT_BEGIN_NAMESPACE
 class Ui_TcpServer
 {
 public:
+    QPushButton *pushButton;
 
     void setupUi(QWidget *TcpServer)
     {
         if (TcpServer->objectName().isEmpty())
             TcpServer->setObjectName(QString::fromUtf8("TcpServer"));
         TcpServer->resize(800, 600);
+        pushButton = new QPushButton(TcpServer);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        pushButton->setGeometry(QRect(260, 160, 121, 71));
 
         retranslateUi(TcpServer);
 
@@ -33,6 +38,7 @@ public:
     void retranslateUi(QWidget *TcpServer)
     {
         TcpServer->setWindowTitle(QCoreApplication::translate("TcpServer", "TcpServer", nullptr));
+        pushButton->setText(QCoreApplication::translate("TcpServer", "PushButton", nullptr));
     } // retranslateUi
 
 };

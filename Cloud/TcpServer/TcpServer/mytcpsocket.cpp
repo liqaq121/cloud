@@ -6,6 +6,12 @@
 MyTcpSocket::MyTcpSocket()
 {
     connect(this,&MyTcpSocket::readyRead,this,&MyTcpSocket::onRecvMsg);
+    connect(this,&MyTcpSocket::disconnected,this,&MyTcpSocket::onOffline);
+}
+
+QString MyTcpSocket::getName() const
+{
+    return strName;
 }
 
 void MyTcpSocket::onRecvMsg()
@@ -23,7 +29,8 @@ void MyTcpSocket::onRecvMsg()
     PDU* resPdu=mkPDU(0);
     switch(pdu->uiMsgType)
     {
-    case ENUM_MSG_TYPE_REGISTER_REQUEST:
+    case ENUM_MSG_TYPE_REGISTER_REQUEST://注册请求
+    {
         char name[33]={0};
         char pwd[33]={0};
         strncpy(name,pdu->caData,32);
@@ -45,6 +52,37 @@ void MyTcpSocket::onRecvMsg()
         resPdu=NULL;
         break;
     }
+    case ENUM_MSG_TYPE_LOGIN_REQUEST://登录请求
+    {
+        char name[33]={0};
+        char pwd[33]={0};
+        strncpy(name,pdu->caData,32);
+        strncpy(pwd,pdu->caData+32,32);
+        strName=name;
+        //处理登录
+        bool ret=OperateDB::getInstance().handleLogin(name,pwd);
+        //登录返回处理
+        resPdu->uiMsgType=ENUM_MSG_TYPE_LOGIN_RESPOND;
+        if(ret)
+        {
+            strcpy(resPdu->caData,LOGIN_OK);
+        }
+        else
+        {
+             strcpy(resPdu->caData,LOGIN_FAILED);
+        }
+        this->write((char*)resPdu,resPdu->uiPDULen);
+        free(resPdu);
+        resPdu=NULL;
+        break;
+    }
+    }
     free(pdu);
     pdu=NULL;
+}
+
+void MyTcpSocket::onOffline()
+{
+    OperateDB::getInstance().handleOffline(strName);
+    emit offline(this);
 }

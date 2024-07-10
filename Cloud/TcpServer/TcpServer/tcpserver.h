@@ -17,6 +17,9 @@ public:
 
     void loadConfg();
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::TcpServer *ui;
     QString m_strIP;

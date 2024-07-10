@@ -17,7 +17,11 @@ public:
         return tcpServer;
     }
 
-    QList<MyTcpSocket*> m_tcpSocketList;
+
+       QList<MyTcpSocket*> m_tcpSocketList;
+public slots:
+       void deleteSocket(MyTcpSocket* socket);
+
     // QTcpServer interface
 protected:
     void incomingConnection(qintptr handle) override;

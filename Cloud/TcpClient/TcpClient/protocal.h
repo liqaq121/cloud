@@ -3,8 +3,10 @@
 
 typedef unsigned int uint;
 
-#define REGISTER_OK "注册成功"
-#define REGISTER_FAILED "注册失败: 用户名已存在"
+#define REGISTER_OK "register ok"
+#define REGISTER_FAILED "register failed: user exist"
+#define LOGIN_OK "login ok"
+#define LOGIN_FAILED "login failed: user not exist or user online already"
 
 /* 协议数据单元*/
 struct PDU
@@ -21,6 +23,8 @@ enum ENUM_MSG_TYPE
     ENUM_MSG_TYPE_MIN=0,
     ENUM_MSG_TYPE_REGISTER_REQUEST,
     ENUM_MSG_TYPE_REGISTER_RESPOND,
+    ENUM_MSG_TYPE_LOGIN_REQUEST,
+    ENUM_MSG_TYPE_LOGIN_RESPOND,
     ENUM_MSG_TYPE_MAX=0x00ffffff
 };
 

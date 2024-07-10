@@ -47,7 +47,7 @@ void TcpClient::loadConfig()
 
 void TcpClient::onConnected()
 {
-    qDebug()<<"连接服务器成功";
+    QMessageBox::information(this,"连接服务器","连接服务器成功");
 }
 
 void TcpClient::onRecvMsg()
@@ -63,10 +63,12 @@ void TcpClient::onRecvMsg()
     //判断消息类型
     switch(pdu->uiMsgType)
     {
-    case ENUM_MSG_TYPE_REGISTER_RESPOND:
+    case ENUM_MSG_TYPE_REGISTER_RESPOND://注册回复
+    {
+        qDebug()<<pdu->caData<<REGISTER_OK<<REGISTER_FAILED;
         if(strcmp(pdu->caData,REGISTER_OK) == 0)
         {
-            QMessageBox::warning(this,"注册提示",REGISTER_OK);
+            QMessageBox::information(this,"注册提示",REGISTER_OK);
         }
         else if(strcmp(pdu->caData,REGISTER_FAILED) == 0)
         {
@@ -74,36 +76,44 @@ void TcpClient::onRecvMsg()
         }
         break;
     }
+    case ENUM_MSG_TYPE_LOGIN_RESPOND://登录回复
+    {
+        qDebug()<<pdu->caData<<LOGIN_OK<<LOGIN_FAILED;
+        if(strcmp(pdu->caData,LOGIN_OK) == 0)
+        {
+            QMessageBox::information(this,"登录提示",LOGIN_OK);
+        }
+        else if(strcmp(pdu->caData,LOGIN_FAILED) == 0)
+        {
+            QMessageBox::warning(this,"登录提示",LOGIN_FAILED);
+        }
+        break;
+    }
+    }
 
     free(pdu);
     pdu=NULL;
 }
 
-/*
-//发送
-void TcpClient::on_btnSend_clicked()
+//登录
+void TcpClient::on_btnLogin_clicked()
 {
-    if(!ui->lineEdit->text().isEmpty())
+    QString strName=ui->editName->text();
+    QString strPwd=ui->editPwd->text();
+    if(strName.isEmpty() || strPwd.isEmpty())
     {
-        QString strMsg=ui->lineEdit->text();
-        uint uiMsgLen=strMsg.size()+1;
-        PDU* pdu=mkPDU(uiMsgLen);
-        memcpy(pdu->caMsg,strMsg.toStdString().c_str(),uiMsgLen);
-        pdu->uiMsgType=8888;
+        QMessageBox::warning(this,"登陆提示","登陆失败: 用户名或密码为空");
+    }
+    else
+    {
+        PDU* pdu=mkPDU(0);//没有消息
+        strncpy(pdu->caData,strName.toStdString().c_str(),32);
+        strncpy(pdu->caData+32,strPwd.toStdString().c_str(),32);
+        pdu->uiMsgType=ENUM_MSG_TYPE_LOGIN_REQUEST;
         m_tcpSocket.write((char*)pdu,pdu->uiPDULen);
         free(pdu);
         pdu=NULL;
     }
-    else
-    {
-
-    }
-}
-*/
-//登录
-void TcpClient::on_btnLogin_clicked()
-{
-
 }
 //注册
 void TcpClient::on_btnRegister_clicked()
@@ -112,7 +122,7 @@ void TcpClient::on_btnRegister_clicked()
     QString strPwd=ui->editPwd->text();
     if(strName.isEmpty() || strPwd.isEmpty())
     {
-        QMessageBox::warning(this,"注册提示","用户名或密码为空!");
+        QMessageBox::warning(this,"注册提示","注册失败: 用户名或密码为空");
     }
     else
     {
@@ -124,4 +134,9 @@ void TcpClient::on_btnRegister_clicked()
         free(pdu);
         pdu=NULL;
     }
+}
+//注销
+void TcpClient::on_btnCancel_clicked()
+{
+
 }

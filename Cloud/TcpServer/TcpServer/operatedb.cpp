@@ -44,3 +44,29 @@ bool OperateDB::handleRegister(const char *name, const char *pwd)
     QSqlQuery query;
     return query.exec(strQuery);
 }
+
+bool OperateDB::handleLogin(const char *name, const char *pwd)
+{
+    QString strQuery=QString("select * from usrInfo where name=\'%1\' and pwd=\'%2\' and online=0")
+            .arg(name)
+            .arg(pwd);
+    QSqlQuery query;
+    query.exec(strQuery);
+    bool ret=query.next();
+    if(ret)
+    {
+        query.exec(QString("update usrInfo set online=1 where name=\'%1\' and pwd=\'%2\'")
+                   .arg(name)
+                   .arg(pwd));
+        return true;
+    }
+    else
+        return false;
+}
+//下线
+void OperateDB::handleOffline(const QString& name)
+{
+    QString strQuery=QString("update usrInfo set online=0 where name=\'%1\'").arg(name);
+    QSqlQuery query;
+    query.exec(strQuery);
+}
